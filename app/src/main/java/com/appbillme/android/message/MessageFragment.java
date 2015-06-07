@@ -1,4 +1,4 @@
-package com.appbillme.android.main;
+package com.appbillme.android.message;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,8 +26,8 @@ import android.widget.Toast;
 import com.appbillme.android.Constants;
 import com.appbillme.android.R;
 import com.appbillme.android.login.LoginActivity;
-import com.appbillme.android.main.message.Message;
-import com.appbillme.android.main.message.MessageAdapter;
+import com.appbillme.android.message.Message;
+import com.appbillme.android.message.MessageAdapter;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * A chat fragment containing messages view and input form.
  */
-public class MainFragment extends Fragment {
+public class MessageFragment extends Fragment {
 
     private static final int REQUEST_LOGIN = 0;
 
@@ -65,7 +65,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    public MainFragment() {
+    public MessageFragment() {
         super();
     }
 

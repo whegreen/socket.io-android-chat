@@ -1,4 +1,4 @@
-package com.appbillme.android.main.message;
+package com.appbillme.android.message;
 
 public class Message {
 
