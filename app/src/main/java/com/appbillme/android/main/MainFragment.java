@@ -1,4 +1,4 @@
-package com.github.nkzawa.socketio.androidchat;
+package com.appbillme.android.main;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,15 +10,28 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.appbillme.android.Constants;
+import com.appbillme.android.R;
+import com.appbillme.android.login.LoginActivity;
+import com.appbillme.android.main.message.Message;
+import com.appbillme.android.main.message.MessageAdapter;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

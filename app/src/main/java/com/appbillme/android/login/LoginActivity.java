@@ -1,9 +1,10 @@
-package com.github.nkzawa.socketio.androidchat;
+package com.appbillme.android.login;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,9 +12,19 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.appbillme.android.Constants;
+import com.appbillme.android.R;
+import com.crashlytics.android.Crashlytics;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +41,9 @@ public class LoginActivity extends Activity {
     private String mUsername;
 
     private Socket mSocket;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
+
     {
         try {
             mSocket = IO.socket(Constants.CHAT_SERVER_URL);
@@ -65,6 +79,38 @@ public class LoginActivity extends Activity {
         });
 
         mSocket.on("login", onLogin);
+
+        // facebook login button
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("user_friends");
+        // If using in a fragment
+//        loginButton.setFragment(this);
+        // Other app specific specialization
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                mUsernameView.setText(loginResult.getAccessToken().getUserId());
+                attemptLogin();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Crashlytics.log(Log.INFO, "LoginActivity", "onCancel");
+
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Crashlytics.log(Log.INFO, "LoginActivity", "onError");
+            }
+        });
     }
 
     @Override
@@ -72,6 +118,12 @@ public class LoginActivity extends Activity {
         super.onDestroy();
 
         mSocket.off("login", onLogin);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.nkzawa.socketio.androidchat" >
+    package="com.appbillme.android" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP"></uses-permission>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        >
         <activity
-            android:name="com.github.nkzawa.socketio.androidchat.MainActivity"
+            android:name="com.appbillme.android.main.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,11 +20,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.github.nkzawa.socketio.androidchat.LoginActivity"
+            android:name="com.appbillme.android.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.AppCompat"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="fc14a57bc04990c2e0ac6b34ed9eb209dfe4f54d" />
     </application>
 
 </manifest>
